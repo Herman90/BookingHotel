@@ -1,0 +1,69 @@
+<div class="">
+	<h3>{{hotel.Name}}</h3>
+	<span class="rating stars_{{hotel.Rate}}"></span>
+	<div class="thumbnail">
+		<img src="{{hotel.PictureURL}}" class="img-thumbnail">
+		<div class="caption">
+			<p>
+				{{hotel.Description}}
+			</p>
+		</div>
+	</div>
+	<section>
+		website: <a>{{hotel.WebSite}}</a><br>
+		phone: {{hotel.NumberOfPhone}}<br>
+		address: {{hotel.Address}}
+	</section>
+</div>
+
+<table class="table table-striped table-bordered">
+	<caption class="">
+		Rooms
+	</caption>
+	<thead>
+		<tr class="danger">
+			<th>
+				Room Type
+			</th>
+			<th>
+				Room Size(m<sup>2</sup>)
+			</th>
+			<th>
+				Number
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="room in hotel.Rooms">
+			<td ng-hide="isEdit">
+				{{room.Type}}
+			</td>
+			<td ng-show="isEdit">
+				<select class="form-control" ng-model="room.Type">
+					<option>Single</option>
+					<option>Double</option>
+					<option>Triple</option>
+					<option>Suite</option>
+				</select>
+			</td>
+			<td ng-hide="isEdit">
+				{{room.Size}}
+			</td>
+			<td ng-show="isEdit">
+				<input type="number" ng-model="room.Size" class="form-control">
+			</td>
+			<td ng-hide="isEdit">
+				{{room.Count}}
+			</td>
+			<td ng-show="isEdit">
+				<input type="number" ng-model="room.Count" class="form-control">
+			</td>
+			<td class="text-right">
+				<button class="btn btn-primary" ng-hide="isEdit" ng-click="isEdit = true">Edit</button>
+				<button class="btn btn-primary" ng-show="isEdit" ng-click="isEdit = false">Save</button>
+				<button class="btn btn-danger">Delete</button>
+			</td>
+		</tr>
+	</tbody>
+</table>

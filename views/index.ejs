@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/stylesheets/style.css">
+
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.js"></script>
+    <script type="text/javascript" src="../bower_components/angular-file-upload/angular-file-upload-shim.min.js"></script>
+    <script type="text/javascript" src="../bower_components/angular-file-upload/angular-file-upload.min.js"></script>
+    <script type="text/javascript" src="../public/javascripts/libs/ejs_fulljslint.js"></script>
+    <script type="text/javascript" src="../public/javascripts/global.js"></script>
+    <script type="text/javascript" src="../public/javascripts/services/hotelService.js"></script>
+	<script type="text/javascript" src="../public/javascripts/controllers/main.js"></script>
+	<script type="text/javascript" src="../public/javascripts/controllers/headerCtrl.js"></script>
+    <script type="text/javascript" src="../public/javascripts/controllers/hotelCtrl.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../bower_components/angular-utils-pagination/dirPagination.js"></script>
+</head>
+<body ng-app="BookHotelApp" class="container">
+    <header class="header" ng-controller="HeaderController">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li ng-class="{ active: isActive('/')}"><a ng-href="#/">Home</a></li>
+                <li ng-class="{ active: isActive('/about')}"><a ng-href="#/about">About</a></li>
+                <li ng-class="{ active: isActive('/hotel/create')}"><a ng-href="#/hotel/create">Create Hotel</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">Book Hotel</h3>
+    </header>
+    <hr/>
+    <div class="main" ng-view=""></div>
+    <footer></footer>
+</body>
+</html>

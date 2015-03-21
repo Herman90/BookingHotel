@@ -1,0 +1,84 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.drop {
+	padding: 15px;
+	border: 2px #ccc dashed;
+	border-radius: 5px;
+	line-height: 34px;
+}
+
+.gallery-box{
+	width: 200px;
+	padding: 3px;
+	border: 1px solid #dadada;
+}
+
+input:invalid{
+	border: 1px solid red;
+}
+
+.item{
+	position: relative;
+}
+
+.hotelHover{
+	display: none;
+}
+
+:hover > .hotelHover{
+	display: block;
+	padding: 10px;
+	right: 0;
+	position: absolute;
+	border-radius: 4px;
+	bottom: 0;
+}
+
+/*rating*/
+.rating{
+	display: block;
+	background-image: url('/public/images/star.png');
+	background-size: auto 100%;
+	width: 15px;
+	height: 15px;
+	overflow: hidden;
+}
+
+.stars_1{
+	width: 15px;
+}
+
+.stars_2{
+	width: 30px;
+}
+
+.stars_3{
+	width: 45px;
+}
+
+.stars_4{
+	width: 60px;
+}
+
+.stars_5{
+	width: 75px;
+}
+
+/*tables*/
+table{
+	margin: 10px 0;
+}
+
+table caption{
+	font-size: 16px;
+	color: #fff;
+	padding: 10px;
+	background-color: #F4A0A0;
+}

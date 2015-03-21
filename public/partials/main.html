@@ -1,0 +1,38 @@
+<div>
+	<div class="well well-sm clearfix">
+		<div class="form-horizontal">
+				<label class="col-xs-4 col-sm-3 col-md-2 control-label" for="pageSize">Page size:</label>
+				<div class="col-xs-8 col-sm-8 col-md-6">
+					<input type="number" id="pageSize" min="1" max="10" placeholder="items per page" class="form-control" ng-model="pageSize">
+				</div>
+		</div>
+	</div>
+	<div class="well well-sm clearfix item" dir-paginate="hotel in hotels| itemsPerPage: pageSize">
+		<div class="col-xs-3">
+			<img src="{{hotel.PictureURL}}" class="img-thumbnail">
+		</div>
+		<div class="col-xs-9 container">
+			<div class="rating stars_{{hotel.Rate}}"></div>
+			<a href="#/hotels/{{hotel._id}}"><span class="panel-title">{{hotel.Name}}</span></a>
+			<p>
+				{{hotel.Description}}
+			</p>
+		</div>
+		<div class="hotelHover">
+			<div class="text-right bottom">
+				<button class="btn btn-default" >Edit</button>
+				<button class="btn btn-danger" ng-click="removeHotel(hotel._id)">Remove</button>
+			</div>
+		</div>
+	</div>
+	<div class="pagination pagination-centered">
+		<!--<div class="btn-group" role="group" aria-label="...">-->
+			<!--<button type="button" class="btn btn-default">1</button>-->
+			<!--<button type="button" class="btn btn-default">2</button>-->
+			<!--<button type="button" class="btn btn-default">3</button>-->
+		<!--</div>-->
+		<div class="text-center">
+			<dir-pagination-controls boundary-links="true" template-url="/bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+		</div>
+	</div>
+</div>

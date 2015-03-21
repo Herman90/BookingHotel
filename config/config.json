@@ -1,0 +1,22 @@
+{
+	"port": 2526,
+	"mongoose": {
+		"uri": "mongodb://localhost/chat",
+		"options": {
+			"server": {
+				"keepAlive": 1
+			}
+		}
+	},
+	"session": {
+		"secret": "Baeur",
+		"key": "sid",
+		"cookie": {
+			"path": "/",
+			"httpOnly": true,
+			"maxAge": null
+		}
+	},
+    "tmp": "/public/upload/tmp"
+
+}
