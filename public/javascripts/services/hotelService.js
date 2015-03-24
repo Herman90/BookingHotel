@@ -4,7 +4,6 @@ angular.module('BookHotelApp')
             angular.extend(this, data);
         }
 
-        // a static method to retrieve Book by ID
         Hotel.get = function(id) {
             return $http.get('/hotels/' + id).then(function(response){
                 if(response.status == 200){

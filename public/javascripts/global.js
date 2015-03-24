@@ -1,4 +1,7 @@
-angular.module('BookHotelApp', ['ngRoute', 'angularFileUpload', 'angularUtils.directives.dirPagination'])
+angular.module('Authentication', []);
+
+angular.module('BookHotelApp', ['ngRoute', 'ngCookies',
+         'angularFileUpload', 'angularUtils.directives.dirPagination', 'Authentication'])
     .config(function($routeProvider){
         $routeProvider
             .when('/', {
@@ -16,6 +19,10 @@ angular.module('BookHotelApp', ['ngRoute', 'angularFileUpload', 'angularUtils.di
             .when('/hotels/:hotelId', {
                 templateUrl: 'http://localhost:2526/public/partials/hotelDetails.html',
                 controller: 'HotelCtrl'
+            })
+            .when('/login', {
+                templateUrl: 'http://localhost:2526/public/partials/signin.html',
+                controller: 'AuthCtrl'
             })
             .otherwise({
                 redirectTo: '/'
