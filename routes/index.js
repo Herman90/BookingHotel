@@ -9,7 +9,12 @@ module.exports = function (app, passport) {
     app.post('/hotel/create', multipartMiddleware, require('./hotels').createHotel);
     app.get('/hotels/:hotelId', require('./hotels').getHotelById);
     app.delete('/hotel/:hotelId', require('./hotels').deleteHotel);
-    app.post('/login', passport.authenticate('local'), function(req, res) { res.send(req.user); });
+    app.post('/login',function(req, res) {
+        passport.authenticate('local', function(){
+            var t=  0;
+        });
+        res.send(req.user);
+    });
 //    app.get('/chat', checkAuth, require('./chat').get);
 //
 //    app.get('/login', require('./login').get);
