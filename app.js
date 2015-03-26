@@ -7,14 +7,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('./libs/mongoose');
-var log = require('libs/log')(module);
+var log = require('./libs/log')(module);
 var app = express();
 var config = require('./config');
 var passport = require('passport');
 app.engine('ejs', require('ejs-locals'));
 
 var LocalStrategy = require('passport-local').Strategy;
-var User = require('models/user');
+var User = require('./models/user');
 passport.use(new LocalStrategy(
     function(username, password, done) {
         User.findOne({ username: username }, function (err, user) {
