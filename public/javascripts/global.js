@@ -24,6 +24,10 @@ angular.module('BookHotelApp', ['ngRoute', 'ngCookies',
                 templateUrl: 'http://localhost:2526/public/partials/signin.html',
                 controller: 'AuthCtrl'
             })
+            .when('/signup', {
+                templateUrl: 'http://localhost:2526/public/partials/signup.html',
+                controller: 'AuthCtrl'
+            })
             .otherwise({
                 redirectTo: '/'
             });

@@ -25,6 +25,14 @@ module.exports = function (passport, config) {
             User.isValidUserPassword(email, password, done);
         }));
 
+    passport.use('signup', new LocalStrategy({
+            usernameField: 'email',
+            passwordField: 'password'
+        },
+        function(req, email, password, done) {
+            User.signup(email, password, done);
+        }));
+
 //    passport.use(new FacebookStrategy({
 //            clientID: config.get('facebook:clientID'),
 //            clientSecret: config.get('facebook:clientSecret'),

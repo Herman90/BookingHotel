@@ -7,9 +7,9 @@ angular.module('Authentication')
                 $scope.error = "";
                 $scope.login = function () {
                     $scope.dataLoading = true;
-                    AuthenticationService.Login($scope.username, $scope.password).then(function(response) {
+                    AuthenticationService.Login($scope.email, $scope.password).then(function(response) {
                         if(response.success) {
-                            AuthenticationService.SetCredentials($scope.username, $scope.password);
+                            AuthenticationService.SetCredentials($scope.email, $scope.password);
                             $location.path('/');
                         } else {
                             $scope.error = response.message;
@@ -17,5 +17,17 @@ angular.module('Authentication')
                         }
                     })
                 };
+                $scope.signup = function(){
+                    $scope.dataLoading = true;
+                    AuthenticationService.SignUp($scope.email, $scope.password).then(function(response) {
+                        if(response.success) {
+                            AuthenticationService.SetCredentials($scope.email, $scope.password);
+                            $location.path('/');
+                        } else {
+                            $scope.error = response.message;
+                            $scope.dataLoading = false;
+                        }
+                    })
+                }
             }]
     )

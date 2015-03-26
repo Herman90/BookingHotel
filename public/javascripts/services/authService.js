@@ -6,7 +6,7 @@ angular.module('Authentication')
 
                 service.Login = function (email, password) {
 
-                    return $http.post('/login', { email: email, password: password })
+                    return $http.get('/login', { email: email, password: password })
                         .success(function (response) {
                             return response.user;
                         })
@@ -15,12 +15,16 @@ angular.module('Authentication')
                         });
                 };
 
-                service.SetCredentials = function (username, password) {
-                    var authdata = Base64.encode(username + ':' + password);
+                service.SignUp = function(email, password){
+                    return $http.get('/signup', { email: email, password: password });
+                }
+
+                service.SetCredentials = function (email, password) {
+                    var authdata = Base64.encode(email + ':' + password);
 
                     $rootScope.globals = {
                         currentUser: {
-                            username: username,
+                            email: email,
                             authdata: authdata
                         }
                     };

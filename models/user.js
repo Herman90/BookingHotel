@@ -23,17 +23,19 @@ UserSchema = mongoose.Schema({
 
 UserSchema.statics.signup = function(email, password, done){
     var User = this;
-    hash(password, function(err, salt, hash){
-        if(err) throw err;
-        // if (err) return done(err);
-        User.create({
-            email : email,
-            salt : salt,
-            hash : hash
-        }, function(err, user){
-            if(err) throw err;
-            // if (err) return done(err);
-            done(null, user);
+    this.findOne({email: email}).exec().then(function(err, user){
+        if(err) return done(err);
+        if(user) return done(null, false, { message : 'User Already Exists' });
+        hash(password, function(err, salt, hash){
+            if (err) return done(err);
+            User.create({
+                email : email,
+                salt : salt,
+                hash : hash
+            }, function(err, user){
+                if (err) return done(err);
+                done(null, user);
+            });
         });
     });
 }
