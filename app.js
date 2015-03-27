@@ -21,7 +21,7 @@ app.use(favicon());
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json({ type: 'application/*+json' }));
+app.use(bodyParser.json());
 app.use(express.session({ secret: 'SECRET' }));
 app.use(passport.initialize());
 app.use(passport.session());

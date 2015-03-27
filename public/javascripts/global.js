@@ -33,7 +33,21 @@ angular.module('BookHotelApp', ['ngRoute', 'ngCookies',
             });
     })
     .config(function($httpProvider){
-        $httpProvider.defaults.headers.post = {};
+        $httpProvider.defaults.headers.post['Content-Type'] =  'application/json';
+        $httpProvider.interceptors.push(function($q, $location) {
+            return {
+                response: function(response) {
+                    // do something on success
+                    return response;
+                },
+                responseError: function(response) {
+                    if (response.status === 401) {
+                        $location.url('/login');
+                    }
+                    return $q.reject(response);
+                }
+            };
+        });
     })
     .service('DataService', function($http){
 

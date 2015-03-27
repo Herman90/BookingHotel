@@ -5,18 +5,12 @@ angular.module('Authentication')
                 var service = {};
 
                 service.Login = function (email, password) {
+                    return $http.post('/login', { email: email, password: password });
 
-                    return $http.get('/login', { email: email, password: password })
-                        .success(function (response) {
-                            return response.user;
-                        })
-                        .error(function(eror){
-                            return 0;
-                        });
                 };
 
                 service.SignUp = function(email, password){
-                    return $http.get('/signup', { email: email, password: password });
+                    return $http.post('/signup', { email: email, password: password });
                 }
 
                 service.SetCredentials = function (email, password) {

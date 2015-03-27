@@ -29,7 +29,7 @@ module.exports = function (passport, config) {
             usernameField: 'email',
             passwordField: 'password'
         },
-        function(req, email, password, done) {
+        function(email, password, done) {
             User.signup(email, password, done);
         }));
 
