@@ -20,6 +20,7 @@
 	<script type="text/javascript" src="../public/javascripts/controllers/headerCtrl.js"></script>
     <script type="text/javascript" src="../public/javascripts/controllers/hotelCtrl.js"></script>
     <script type="text/javascript" src="../public/javascripts/controllers/authCtrl.js"></script>
+    <script type="text/javascript" src="../public/javascripts/directives/directive.js"></script>
     <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../bower_components/angular-utils-pagination/dirPagination.js"></script>
@@ -38,6 +39,6 @@
     <hr/>
     <div class="main" ng-view=""></div>
     <footer></footer>
-    <div login-dialog ng-if="!isLoginPage"></div>
+    <login-dialog title="some words">Some words</loginDialog>
 </body>
 </html>

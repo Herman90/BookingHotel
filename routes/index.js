@@ -4,9 +4,18 @@ var multipartMiddleware = multipart({
 });
 var Account = require('../models/account');
 
+var needsRole = function(role) {
+    return function(req, res, next) {
+        if (req.user && req.user.role === role)
+            next();
+        else
+            res.send(401, 'Unauthorized');
+    };
+};
+
 module.exports = function (app, passport) {
     app.get('/', require('./start').get);
-    app.get('/hotel', require('./hotels').getAll);
+    app.get('/hotel', passport.authenticate('local'), needsRole('admin'), require('./hotels').getAll);
     app.post('/hotel/create', multipartMiddleware, require('./hotels').createHotel);
     app.get('/hotels/:hotelId', require('./hotels').getHotelById);
     app.delete('/hotel/:hotelId', require('./hotels').deleteHotel);
@@ -33,6 +42,8 @@ module.exports = function (app, passport) {
 //    app.get('/login', require('./login').get);
 //    app.post('/login', require('./login').post);
 //    app.post('/logout', require('./logout').post);
+
+
 }
 
 

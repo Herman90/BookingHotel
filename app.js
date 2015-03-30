@@ -36,7 +36,7 @@ require('./routes')(app, passport);
 
 var server = http.createServer(app);
 server.listen(config.get('port'), function () {
-    log.info('Express server listening on port ' + '2526');
+    log.info('Express server listening on port ' + config.get('port'));
 });
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

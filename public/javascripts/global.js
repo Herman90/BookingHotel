@@ -37,14 +37,14 @@ angular.module('BookHotelApp', ['ngRoute', 'ngCookies',
                 templateUrl: 'http://localhost:2526/public/partials/signin.html',
                 controller: 'AuthCtrl',
 		        data: {
-			        authorizedRoles: [USER_ROLES.guest]
+			        authorizedRoles: [USER_ROLES.all]
 		        }
             })
             .when('/signup', {
                 templateUrl: 'http://localhost:2526/public/partials/signup.html',
                 controller: 'AuthCtrl',
 		        data: {
-			        authorizedRoles: [USER_ROLES.guest]
+			        authorizedRoles: [USER_ROLES.all]
 		        }
             })
             .otherwise({
@@ -95,18 +95,23 @@ angular.module('BookHotelApp', ['ngRoute', 'ngCookies',
             }
             return value;
         }
-	}).run(function($rootScope, AUTH_EVENTS, AuthenticationService){
+	}).run(function($rootScope, AUTH_EVENTS, USER_ROLES, AuthenticationService){
 		$rootScope.$on('$routeChangeStart', function (event, next) {
-			var authorizedRoles = next.data.authorizedRoles;
-			if (!AuthenticationService.isAuthorized(authorizedRoles)) {
-				event.preventDefault();
-				if (AuthenticationService.isAuthenticated()) {
-					// user is not allowed
-					$rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
-				} else {
-					// user is not logged in
-					$rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
-				}
-			}
+            if(next.data){
+                var authorizedRoles = next.data.authorizedRoles;
+                if(authorizedRoles.indexOf(USER_ROLES.all) !== -1){
+                    return;
+                }
+                if (!AuthenticationService.isAuthorized(authorizedRoles)) {
+                    event.preventDefault();
+                    if (AuthenticationService.isAuthenticated()) {
+                        // user is not allowed
+                        $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+                    } else {
+                        // user is not logged in
+                        $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+                    }
+                }
+            }
 		});
 	});

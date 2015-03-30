@@ -8,6 +8,7 @@ UserSchema = mongoose.Schema({
     email:      String,
     salt:       String,
     hash:       String,
+    role:       String,
     facebook:{
         id:       String,
         email:    String,
@@ -31,7 +32,8 @@ UserSchema.statics.signup = function(email, password, done){
             User.create({
                 email : email,
                 salt : salt,
-                hash : hash
+                hash : hash,
+                role: 'admin'
             }, function(err, user){
                 if (err) return done(err);
                 done(null, user);

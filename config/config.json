@@ -1,7 +1,7 @@
 {
 	"port": 2526,
 	"mongoose": {
-		"uri": "mongodb://localhost/chat",
+		"uri": "mongodb://localhost/bookHotel",
 		"options": {
 			"server": {
 				"keepAlive": 1
