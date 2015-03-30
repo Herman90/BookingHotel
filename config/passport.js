@@ -1,7 +1,7 @@
 var mongoose = require('mongoose')
     , LocalStrategy = require('passport-local').Strategy
-    , FacebookStrategy = require('passport-facebook').Strategy
-    , GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
+//    , FacebookStrategy = require('passport-facebook').Strategy
+//    , GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
     , User = require('models/user');
 
 

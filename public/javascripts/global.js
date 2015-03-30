@@ -1,32 +1,51 @@
 angular.module('Authentication', []);
 
+
 angular.module('BookHotelApp', ['ngRoute', 'ngCookies',
          'angularFileUpload', 'angularUtils.directives.dirPagination', 'Authentication'])
-    .config(function($routeProvider){
+    .config(function($routeProvider, USER_ROLES){
         $routeProvider
             .when('/', {
                 templateUrl: 'http://localhost:2526/public/partials/main.html',
-                controller: 'MainCtrl'
+                controller: 'MainCtrl',
+		        data: {
+			        authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
+		        }
             })
             .when('/about', {
                 templateUrl: 'http://localhost:2526/public/partials/about.html',
-                controller: 'AboutCtrl'
+                controller: 'AboutCtrl',
+		        data: {
+			        authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
+		        }
             })
             .when('/hotel/create', {
                 templateUrl: 'http://localhost:2526/public/partials/createHotel.html',
-                controller: 'MainCtrl'
+                controller: 'MainCtrl',
+		        data: {
+			        authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
+		        }
             })
             .when('/hotels/:hotelId', {
                 templateUrl: 'http://localhost:2526/public/partials/hotelDetails.html',
-                controller: 'HotelCtrl'
+                controller: 'HotelCtrl',
+		        data: {
+			        authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
+		        }
             })
             .when('/login', {
                 templateUrl: 'http://localhost:2526/public/partials/signin.html',
-                controller: 'AuthCtrl'
+                controller: 'AuthCtrl',
+		        data: {
+			        authorizedRoles: [USER_ROLES.guest]
+		        }
             })
             .when('/signup', {
                 templateUrl: 'http://localhost:2526/public/partials/signup.html',
-                controller: 'AuthCtrl'
+                controller: 'AuthCtrl',
+		        data: {
+			        authorizedRoles: [USER_ROLES.guest]
+		        }
             })
             .otherwise({
                 redirectTo: '/'
@@ -48,10 +67,27 @@ angular.module('BookHotelApp', ['ngRoute', 'ngCookies',
                 }
             };
         });
+		$httpProvider.interceptors.push([
+			'$injector',
+			function ($injector) {
+				return $injector.get('AuthInterceptor');
+			}
+		]);
     })
-    .service('DataService', function($http){
-
-    })
+	.factory('AuthInterceptor', function ($rootScope, $q,
+                                          AUTH_EVENTS) {
+		return {
+			responseError: function (response) {
+				$rootScope.$broadcast({
+					401: AUTH_EVENTS.notAuthenticated,
+					403: AUTH_EVENTS.notAuthorized,
+					419: AUTH_EVENTS.sessionTimeout,
+					440: AUTH_EVENTS.sessionTimeout
+				}[response.status], response);
+				return $q.reject(response);
+			}
+		};
+	})
     .filter('repeat', function(){
         return function(value, count){
             if(typeof count === "number"){
@@ -59,4 +95,18 @@ angular.module('BookHotelApp', ['ngRoute', 'ngCookies',
             }
             return value;
         }
-    });
+	}).run(function($rootScope, AUTH_EVENTS, AuthenticationService){
+		$rootScope.$on('$routeChangeStart', function (event, next) {
+			var authorizedRoles = next.data.authorizedRoles;
+			if (!AuthenticationService.isAuthorized(authorizedRoles)) {
+				event.preventDefault();
+				if (AuthenticationService.isAuthenticated()) {
+					// user is not allowed
+					$rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+				} else {
+					// user is not logged in
+					$rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+				}
+			}
+		});
+	});

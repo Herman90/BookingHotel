@@ -10,10 +10,12 @@ angular.module('Authentication')
                     AuthenticationService.Login($scope.email, $scope.password).success(function(response) {
                         if(response.success) {
                             AuthenticationService.SetCredentials($scope.email, $scope.password);
+	                        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                             $location.path('/');
                         } else {
                             $scope.error = response.message;
                             $scope.dataLoading = false;
+	                        $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
                         }
                     });
                 };

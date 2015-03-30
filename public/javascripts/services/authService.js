@@ -1,13 +1,29 @@
 angular.module('Authentication')
     .factory('AuthenticationService',
-        ['Base64', '$http', '$cookieStore', '$rootScope', '$timeout',
-            function (Base64, $http, $cookieStore, $rootScope, $timeout) {
+        ['Base64', '$http', '$cookieStore', '$rootScope', 'Session',
+            function (Base64, $http, $cookieStore, $rootScope, Session) {
                 var service = {};
 
                 service.Login = function (email, password) {
-                    return $http.post('/login', { email: email, password: password });
+                    return $http.post('/login', { email: email, password: password }).then(function(res){
+	                    Session.create(res.data.id, res.data.user.id,
+		                    res.data.user.role);
+	                    return res.data.user;
+                    });
 
                 };
+
+	            service.isAuthenticated = function () {
+		            return !!Session.userId;
+	            };
+
+	            service.isAuthorized = function (authorizedRoles) {
+		            if (!angular.isArray(authorizedRoles)) {
+			            authorizedRoles = [authorizedRoles];
+		            }
+		            return (service.isAuthenticated() &&
+			            authorizedRoles.indexOf(Session.userRole) !== -1);
+	            };
 
                 service.SignUp = function(email, password){
                     return $http.post('/signup', { email: email, password: password });
