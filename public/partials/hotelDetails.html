@@ -59,7 +59,7 @@
 			<td ng-show="isEdit">
 				<input type="number" ng-model="room.Count" class="form-control">
 			</td>
-			<td class="text-right">
+			<td class="text-right" ng-if="isAuthorized(userRoles.admin)">
 				<button class="btn btn-primary" ng-hide="isEdit" ng-click="isEdit = true">Edit</button>
 				<button class="btn btn-primary" ng-show="isEdit" ng-click="isEdit = false">Save</button>
 				<button class="btn btn-danger">Delete</button>

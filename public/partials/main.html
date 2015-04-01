@@ -18,7 +18,7 @@
 				{{hotel.Description}}
 			</p>
 		</div>
-		<div class="hotelHover">
+		<div class="hotelHover" ng-if="isAuthorized(userRoles.Admin)">
 			<div class="text-right bottom">
 				<button class="btn btn-default" >Edit</button>
 				<button class="btn btn-danger" ng-click="removeHotel(hotel._id)">Remove</button>

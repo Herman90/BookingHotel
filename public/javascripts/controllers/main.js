@@ -1,14 +1,7 @@
 
 angular.module('BookHotelApp')
-    .controller('MainCtrl',['$scope', '$upload', '$http', 'Hotel','AuthenticationService',
-		function ($scope, $upload, $http, Hotel,AuthenticationService, USER_ROLES) {
-		$scope.currentUser = null;
-		$scope.userRoles = USER_ROLES;
-		$scope.isAuthorized = AuthenticationService.isAuthorized;
-
-		$scope.setCurrentUser = function (user) {
-			$scope.currentUser = user;
-		};
+    .controller('MainCtrl',['$scope', '$upload', '$http', 'Hotel','AuthenticationService', '$alert',
+		function ($scope, $upload, $http, Hotel,AuthenticationService, $alert, USER_ROLES) {
 
         $scope.hotels = [];
         $scope.pageSize = 10;
@@ -40,6 +33,7 @@ angular.module('BookHotelApp')
                 .progress(function (evt) {
                     $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total, 10);
                 }).success(function (data) {
+                    $alert({title: 'Great!', content: 'Hotel' + data.data.hotel.name + ' has been created successfuly', placement: 'top', type: 'info', show: true});
                     $scope.formData = {};
                 });
         };
@@ -60,6 +54,7 @@ angular.module('BookHotelApp')
             };
         }
     ]).constant('AUTH_EVENTS', {
+        registerSuccess: 'auth-register-success',
 		loginSuccess: 'auth-login-success',
 		loginFailed: 'auth-login-failed',
 		logoutSuccess: 'auth-logout-success',
@@ -69,6 +64,5 @@ angular.module('BookHotelApp')
 	}).constant('USER_ROLES', {
 		all: '*',
 		admin: 'admin',
-		editor: 'editor',
-		guest: 'guest'
+		member: 'member'
 	});

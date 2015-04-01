@@ -5,12 +5,7 @@ angular.module('Authentication')
                 var service = {};
 
                 service.Login = function (email, password) {
-                    return $http.post('/login', { email: email, password: password }).then(function(res){
-	                    Session.create(res.data.id, res.data.user.id,
-		                    res.data.user.role);
-	                    return res.data.user;
-                    });
-
+                    return $http.post('/login', { email: email, password: password });
                 };
 
 	            service.isAuthenticated = function () {
@@ -25,30 +20,24 @@ angular.module('Authentication')
 			            authorizedRoles.indexOf(Session.userRole) !== -1);
 	            };
 
-                service.SignUp = function(email, password){
-                    return $http.post('/signup', { email: email, password: password });
+                service.SignUp = function(email, password, isAdmin){
+                    return $http.post('/signup', { email: email, password: password, isAdmin: isAdmin });
                 }
 
-                service.SetCredentials = function (email, password) {
-                    var authdata = Base64.encode(email + ':' + password);
-
-                    $rootScope.globals = {
-                        currentUser: {
-                            email: email,
-                            authdata: authdata
-                        }
-                    };
-
-                    Session.create()
-
-                    $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
-                    $cookieStore.put('globals', $rootScope.globals);
+                service.setSession = function (id, userId, role) {
+                    Session.create(id, userId, role);
                 };
 
+                service.checkIfLoggedIn = function(){
+                    return $http.get('/profile');
+                }
+
+                service.logout = function(){
+                    return $http.post('/logout');
+                }
+
                 service.ClearCredentials = function () {
-                    $rootScope.globals = {};
-                    $cookieStore.remove('globals');
-                    $http.defaults.headers.common.Authorization = 'Basic ';
+                    Session.destroy();
                 };
 
                 return service;

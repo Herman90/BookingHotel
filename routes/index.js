@@ -6,21 +6,34 @@ var Account = require('../models/account');
 
 var needsRole = function(role) {
     return function(req, res, next) {
-        if (req.user && req.user.role === role)
-            next();
-        else
+        if(req.isAuthenticated()){
+            if (req.user && req.user.role === role)
+                next();
+            else
+                res.send(403, 'Forbidden');
+        }else{
             res.send(401, 'Unauthorized');
+        }
     };
 };
 
 module.exports = function (app, passport) {
+    app.get('/profile', function(req, res, next){
+        if(req.isAuthenticated() && req.user){
+            res.send({ data: { user: req.user, id: req.sessionID }});
+        }
+    });
     app.get('/', require('./start').get);
-    app.get('/hotel', passport.authenticate('local'), needsRole('admin'), require('./hotels').getAll);
+    app.get('/hotel', require('./hotels').getAll);
     app.post('/hotel/create', multipartMiddleware, require('./hotels').createHotel);
     app.get('/hotels/:hotelId', require('./hotels').getHotelById);
-    app.delete('/hotel/:hotelId', require('./hotels').deleteHotel);
+    app.delete('/hotel/:hotelId', needsRole('admin'), require('./hotels').deleteHotel);
     app.post('/login', passport.authenticate('local'), function(req, res) {
-        res.send({ success: true, user: req.user});
+        res.send({ data: { user: req.user, id: req.sessionID }});
+    });
+    app.post('/logout', function(req, res){
+        req.logout();
+        res.send({data: {user: null}});
     });
 
 //    app.post('/login', function(req, res, next) {
@@ -35,7 +48,7 @@ module.exports = function (app, passport) {
 //    });
 
     app.post('/signup', passport.authenticate('signup'), function(req, res, next){
-        res.send({success: true, message: 'Ok', user: req.user});
+        res.send({ data: { user: req.user, id: req.sessionID }});
     });
 //    app.get('/chat', checkAuth, require('./chat').get);
 //

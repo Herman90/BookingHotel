@@ -22,9 +22,9 @@ UserSchema = mongoose.Schema({
 });
 
 
-UserSchema.statics.signup = function(email, password, done){
+UserSchema.statics.signup = function(email, password, isAdmin, done){
     var User = this;
-    this.findOne({email: email}).exec().then(function(err, user){
+    this.findOne({email: email}, function(err, user){
         if(err) return done(err);
         if(user) return done(null, false, { message : 'User Already Exists' });
         hash(password, function(err, salt, hash){
@@ -33,7 +33,7 @@ UserSchema.statics.signup = function(email, password, done){
                 email : email,
                 salt : salt,
                 hash : hash,
-                role: 'admin'
+                role: isAdmin ? 'admin' : 'member'
             }, function(err, user){
                 if (err) return done(err);
                 done(null, user);

@@ -69,8 +69,7 @@ exports.createHotel = function(req, res){
                 }
 
                 hotel.save();
-                res.status('301');
-                res.send('/hotel');
+                res.send({ data: {hotel: hotel}});
             }else{
                 throw (err);
             }

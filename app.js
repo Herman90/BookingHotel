@@ -11,6 +11,7 @@ var log = require('libs/log')(module);
 var app = express();
 var config = require('./config');
 var passport = require('passport');
+var session = require('express-session');
 require('./config/passport')(passport, config)
 app.engine('ejs', require('ejs-locals'));
 // view engine setup
@@ -19,10 +20,10 @@ app.set('view engine', 'ejs');
 
 app.use(favicon());
 app.use(logger('dev'));
-app.use(cookieParser());
+app.use(express.cookieParser(config.get('session:secret')));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use(express.session({ secret: 'SECRET' }));
+app.use(express.session(config.get('session')));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -40,15 +41,15 @@ server.listen(config.get('port'), function () {
 });
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    res.status(404);
+    var err = new Error('Some error');
+    err.status = 500;
+    res.status(500);
     if (req.accepts('html')) {
         next(err)
         return;
     }
     if (req.accepts('json')) {
-        res.send({ error: 'Not found', code: 404 });
+        res.send({ error: req.error, code: req.error });
         return;
     }
     res.type('txt').send('Not found');
@@ -60,22 +61,18 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
-//        res.render('error', {
-//            message: err.message,
-//            error: err
-//        });
-        var err = new Error('Not Found');
-        err.status = 404;
-        res.status(404);
+        //var err = new Error('Not Found');
+        //err.status = 404;
+        //res.status(404);
         if (req.accepts('html')) {
             next(err)
             return;
         }
         if (req.accepts('json')) {
-            res.send({ error: 'Not found', code: 404 });
+            res.send(err);
             return;
         }
-        res.type('txt').send('Not found');
+        res.type('txt').send(err);
     });
 }
 
@@ -86,18 +83,18 @@ app.use(function(err, req, res, next) {
 //        message: err.message,
 //        error: {}
 //    });
-    var err = new Error('Not Found');
-    err.status = 404;
-    res.status(404);
+    //var err = new Error(err);
+    //err.status = 404;
+    //res.status(404);
     if (req.accepts('html')) {
         next(err)
         return;
     }
     if (req.accepts('json')) {
-        res.send({ error: 'Not found', code: 404 });
+        res.send(err);
         return;
     }
-    res.type('txt').send('Not found');
+    res.type('txt').send(err);
 });
 
 

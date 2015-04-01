@@ -82,3 +82,14 @@ table caption{
 	padding: 10px;
 	background-color: #F4A0A0;
 }
+
+/*modals*/
+.modal-backdrop{
+	background-color: rgba(0,0,0,0.4);
+}
+
+.modal-body:after{
+	content: "";
+	display: block;
+	clear: both;
+}

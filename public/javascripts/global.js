@@ -2,35 +2,40 @@ angular.module('Authentication', []);
 
 
 angular.module('BookHotelApp', ['ngRoute', 'ngCookies',
-         'angularFileUpload', 'angularUtils.directives.dirPagination', 'Authentication'])
+         'angularFileUpload', 'angularUtils.directives.dirPagination', 'Authentication', 'mgcrea.ngStrap'])
     .config(function($routeProvider, USER_ROLES){
         $routeProvider
             .when('/', {
                 templateUrl: 'http://localhost:2526/public/partials/main.html',
                 controller: 'MainCtrl',
 		        data: {
-			        authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
+			        authorizedRoles: [USER_ROLES.all]
 		        }
+//                resolve: {
+//                    auth: function resolveAuthentication(AuthResolver) {
+//                        return AuthResolver.resolve();
+//                    }
+//                }
             })
             .when('/about', {
                 templateUrl: 'http://localhost:2526/public/partials/about.html',
                 controller: 'AboutCtrl',
 		        data: {
-			        authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
+			        authorizedRoles: [USER_ROLES.admin, USER_ROLES.member]
 		        }
             })
             .when('/hotel/create', {
                 templateUrl: 'http://localhost:2526/public/partials/createHotel.html',
                 controller: 'MainCtrl',
 		        data: {
-			        authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
+			        authorizedRoles: [USER_ROLES.admin]
 		        }
             })
             .when('/hotels/:hotelId', {
                 templateUrl: 'http://localhost:2526/public/partials/hotelDetails.html',
                 controller: 'HotelCtrl',
 		        data: {
-			        authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
+			        authorizedRoles: [USER_ROLES.admin]
 		        }
             })
             .when('/login', {
@@ -63,6 +68,9 @@ angular.module('BookHotelApp', ['ngRoute', 'ngCookies',
                     if (response.status === 401) {
                         $location.url('/login');
                     }
+                    if (response.status === 301) {
+                        $location.url(response.data.url);
+                    }
                     return $q.reject(response);
                 }
             };
@@ -88,14 +96,16 @@ angular.module('BookHotelApp', ['ngRoute', 'ngCookies',
 			}
 		};
 	})
-    .filter('repeat', function(){
-        return function(value, count){
-            if(typeof count === "number"){
-                return Array(count + 1).join(value);
-            }
-            return value;
-        }
-	}).run(function($rootScope, AUTH_EVENTS, USER_ROLES, AuthenticationService){
+    .run(function($rootScope, AUTH_EVENTS, USER_ROLES, AuthenticationService){
+        $rootScope.userRoles = USER_ROLES;
+        $rootScope.isAuthorized = AuthenticationService.isAuthorized;
+        $rootScope.isAuthenticated = AuthenticationService.isAuthenticated;
+        $rootScope.currentUser  = null;
+
+        AuthenticationService.checkIfLoggedIn().success(function(res){
+            AuthenticationService.setSession(res.data.id, res.data.user._id, res.data.user.role);
+            $rootScope.currentUser = res.data.user;
+        });
 		$rootScope.$on('$routeChangeStart', function (event, next) {
             if(next.data){
                 var authorizedRoles = next.data.authorizedRoles;
@@ -114,4 +124,6 @@ angular.module('BookHotelApp', ['ngRoute', 'ngCookies',
                 }
             }
 		});
+
+
 	});

@@ -27,10 +27,11 @@ module.exports = function (passport, config) {
 
     passport.use('signup', new LocalStrategy({
             usernameField: 'email',
-            passwordField: 'password'
+            passwordField: 'password',
+            passReqToCallback: true
         },
-        function(email, password, done) {
-            User.signup(email, password, done);
+        function(req, email, password, done) {
+            User.signup(email, password, req.body.isAdmin, done);
         }));
 
 //    passport.use(new FacebookStrategy({
