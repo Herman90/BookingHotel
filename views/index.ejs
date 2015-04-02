@@ -37,7 +37,7 @@
                 <li ng-class="{ active: isActive('/')}"><a ng-href="#/">Home</a></li>
                 <li ng-class="{ active: isActive('/about')}"><a ng-href="#/about">About</a></li>
                 <li ng-if="isAuthorized(userRoles.admin)"  ng-class="{ active: isActive('/hotel/create')}"><a ng-href="#/hotel/create">Create Hotel</a></li>
-                <li ng-if="isAuthenticated()"><a ng-href="#/logout">Logout</a></li>
+                <li ng-if="isAuthenticated()"><a ng-click="logout()">Logout</a></li>
             </ul>
         </nav>
         <h3 class="text-muted">Book Hotel</h3>

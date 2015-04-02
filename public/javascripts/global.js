@@ -35,7 +35,7 @@ angular.module('BookHotelApp', ['ngRoute', 'ngCookies',
                 templateUrl: 'http://localhost:2526/public/partials/hotelDetails.html',
                 controller: 'HotelCtrl',
 		        data: {
-			        authorizedRoles: [USER_ROLES.admin]
+			        authorizedRoles: [USER_ROLES.admin, USER_ROLES.member]
 		        }
             })
             .when('/login', {
@@ -95,12 +95,25 @@ angular.module('BookHotelApp', ['ngRoute', 'ngCookies',
 				return $q.reject(response);
 			}
 		};
-	})
+	}).constant('AUTH_EVENTS', {
+        registerSuccess: 'auth-register-success',
+        loginSuccess: 'auth-login-success',
+        loginFailed: 'auth-login-failed',
+        logoutSuccess: 'auth-logout-success',
+        sessionTimeout: 'auth-session-timeout',
+        notAuthenticated: 'auth-not-authenticated',
+        notAuthorized: 'auth-not-authorized'
+    }).constant('USER_ROLES', {
+        all: '*',
+        admin: 'admin',
+        member: 'member'
+    })
     .run(function($rootScope, AUTH_EVENTS, USER_ROLES, AuthenticationService){
         $rootScope.userRoles = USER_ROLES;
         $rootScope.isAuthorized = AuthenticationService.isAuthorized;
         $rootScope.isAuthenticated = AuthenticationService.isAuthenticated;
         $rootScope.currentUser  = null;
+        $rootScope.logout = AuthenticationService.logout;
 
         AuthenticationService.checkIfLoggedIn().success(function(res){
             AuthenticationService.setSession(res.data.id, res.data.user._id, res.data.user.role);

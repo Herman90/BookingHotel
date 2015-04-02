@@ -9,10 +9,12 @@
 			</p>
 		</div>
 	</div>
-	<section>
-		website: <a>{{hotel.WebSite}}</a><br>
-		phone: {{hotel.NumberOfPhone}}<br>
-		address: {{hotel.Address}}
+	<section class="jumbotron">
+		<label>website:</label> <a>{{hotel.WebSite}}</a>
+        <hr>
+		<label>phone:</label> {{hotel.NumberOfPhone}}<br>
+        <hr>
+		<label>address:</label> {{hotel.Address}}
 	</section>
 </div>
 
@@ -50,13 +52,13 @@
 			<td ng-hide="isEdit">
 				{{room.Size}}
 			</td>
-			<td ng-show="isEdit">
+			<td ng-show="isEdit" ng-if="isAuthorized(userRoles.admin)">
 				<input type="number" ng-model="room.Size" class="form-control">
 			</td>
-			<td ng-hide="isEdit">
+			<td ng-hide="isEdit" ng-if="isAuthorized(userRoles.admin)">
 				{{room.Count}}
 			</td>
-			<td ng-show="isEdit">
+			<td ng-show="isEdit" ng-if="isAuthorized(userRoles.admin)">
 				<input type="number" ng-model="room.Count" class="form-control">
 			</td>
 			<td class="text-right" ng-if="isAuthorized(userRoles.admin)">
@@ -64,6 +66,9 @@
 				<button class="btn btn-primary" ng-show="isEdit" ng-click="isEdit = false">Save</button>
 				<button class="btn btn-danger">Delete</button>
 			</td>
+            <td ng-if="isAuthorized(userRoles.member)">
+                <button class="btn btn-primary">Book now</button>
+            </td>
 		</tr>
 	</tbody>
 </table>
