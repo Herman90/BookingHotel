@@ -33,9 +33,7 @@ angular.module('Authentication')
                 }
 
                 service.logout = function(){
-                    return $http.post('/logout').then(function(){
-                        service.ClearCredentials();
-                    });
+                    return $http.post('/logout');
                 }
 
                 service.ClearCredentials = function () {

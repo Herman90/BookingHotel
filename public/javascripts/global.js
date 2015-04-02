@@ -113,7 +113,10 @@ angular.module('BookHotelApp', ['ngRoute', 'ngCookies',
         $rootScope.isAuthorized = AuthenticationService.isAuthorized;
         $rootScope.isAuthenticated = AuthenticationService.isAuthenticated;
         $rootScope.currentUser  = null;
-        $rootScope.logout = AuthenticationService.logout;
+        $rootScope.logout = function(){AuthenticationService.logout().then(function(){
+            AuthenticationService.ClearCredentials();
+            $rootScope.currentUser  = null;
+        });};
 
         AuthenticationService.checkIfLoggedIn().success(function(res){
             AuthenticationService.setSession(res.data.id, res.data.user._id, res.data.user.role);
