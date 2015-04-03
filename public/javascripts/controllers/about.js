@@ -1,4 +1,9 @@
-angular.module('BookHotelApp')
-    .controller('AboutCtrl', function ($scope, $http) {
+(function(){
+    angular.module('BookHotelApp')
+        .controller('AboutCtrl', aboutController);
 
-    });
+    function aboutController($scope, $http) {
+
+    }
+})();
+

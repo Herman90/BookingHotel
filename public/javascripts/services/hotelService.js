@@ -1,5 +1,8 @@
-angular.module('BookHotelApp')
-    .factory('Hotel', function($http, $upload){
+(function(){
+    angular.module('BookHotelApp')
+        .factory('Hotel', hotelService);
+
+    function hotelService($http, $upload){
         var Hotel = function(data) {
             angular.extend(this, data);
         }
@@ -42,8 +45,6 @@ angular.module('BookHotelApp')
                 contentType: 'application/json'
             });
         }
-
         return Hotel;
-
-
-    });
+    }
+})();

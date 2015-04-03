@@ -29,7 +29,7 @@ module.exports = function (app, passport) {
     app.get('/hotels/:hotelId', require('./hotels').getHotelById);
     app.delete('/hotel/:hotelId', needsRole('admin'), require('./hotels').deleteHotel);
     app.post('/login', passport.authenticate('local'), function(req, res) {
-        res.send({ data: { user: req.user, id: req.sessionID }});
+        res.send({ user: req.user, id: req.sessionID });
     });
     app.post('/logout', function(req, res){
         req.logout();

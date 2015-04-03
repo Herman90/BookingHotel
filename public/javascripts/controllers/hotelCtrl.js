@@ -1,5 +1,7 @@
-angular.module('BookHotelApp')
-    .controller('HotelCtrl', function($scope, $routeParams, $http, Hotel){
+(function(){
+    angular.module('BookHotelApp')
+        .controller('HotelCtrl', hotelController);
+    function hotelController($scope, $routeParams, $http, Hotel){
         $scope.hotelId = $routeParams.hotelId;
         $scope.hotel = {};
         $scope.isEdit = false;
@@ -9,4 +11,5 @@ angular.module('BookHotelApp')
             });
 
         }
-    })
+    }
+})();
