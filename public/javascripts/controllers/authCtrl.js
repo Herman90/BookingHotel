@@ -21,15 +21,13 @@
         };
         $scope.signup = function(){
             $scope.dataLoading = true;
-            AuthenticationService.signUp($scope.email, $scope.password, $scope.isAdmin).success(function(res) {
-                AuthenticationService.setSession(res.data.id, res.data.user._id,
-                    res.data.user.role);
+            AuthenticationService.signUp($scope.email, $scope.password, $scope.isAdmin).then(function(res) {
                 $scope.dataLoading = false;
                 $rootScope.$broadcast(AUTH_EVENTS.registerSuccess);
                 return res.data.user;
-            }).error(function(erorr){
+            }).catch(function(erorr){
                     $scope.dataLoading = false;
-                    alert('error');
+                    alert('error: ' + error);
                 })
         }
     }

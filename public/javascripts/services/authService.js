@@ -43,7 +43,12 @@
         }
 
         function signUp(email, password, isAdmin){
-            return $http.post('/signup', { email: email, password: password, isAdmin: isAdmin });
+            return $http.post('/signup', { email: email, password: password, isAdmin: isAdmin })
+                .then(signupComplete);
+            function signupComplete(res){
+                setSession(res.data.id, res.data.user._id, res.data.user.role);
+                return res.data.user;
+            }
         }
 
         function setSession(id, userId, role) {
