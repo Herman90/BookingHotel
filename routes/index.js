@@ -20,7 +20,7 @@ var needsRole = function(role) {
 module.exports = function (app, passport) {
     app.get('/profile', function(req, res, next){
         if(req.isAuthenticated() && req.user){
-            res.send({ data: { user: req.user, id: req.sessionID }});
+            res.send({ user: req.user, id: req.sessionID });
         }
     });
     app.get('/', require('./start').get);
@@ -33,7 +33,7 @@ module.exports = function (app, passport) {
     });
     app.post('/logout', function(req, res){
         req.logout();
-        res.send({data: {user: null}});
+        res.send({user: null});
     });
 
 //    app.post('/login', function(req, res, next) {
@@ -48,7 +48,7 @@ module.exports = function (app, passport) {
 //    });
 
     app.post('/signup', passport.authenticate('signup'), function(req, res, next){
-        res.send({ data: { user: req.user, id: req.sessionID }});
+        res.send({ user: req.user, id: req.sessionID });
     });
 //    app.get('/chat', checkAuth, require('./chat').get);
 //

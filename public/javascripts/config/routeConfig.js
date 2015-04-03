@@ -33,6 +33,14 @@
                 controller: 'HotelCtrl',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.member]
+                },
+                resolve: {
+                    hotel: function($route, Hotel){
+                        var hotelId = $route.current.params.hotelId;
+                        if(hotelId){
+                            return Hotel.get(hotelId);
+                        }
+                    }
                 }
             })
             .when('/login', {

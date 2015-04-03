@@ -2,7 +2,7 @@
     angular.module('BookHotelApp').directive('loginDialog', loginDialogDirective);
 
     function loginDialogDirective(AUTH_EVENTS, $modal) {
-        return {
+        var directive = {
             restrict: 'E',
             template: '<div class="modal fade">' +
                 '<div class="modal-dialog">' +
@@ -17,23 +17,26 @@
                 '</div>',
             replace:true,
             scope:true,
-            link: function (scope, element, attrs) {
-                var loginModal = $modal({title: 'Login Foem', contentTemplate: 'http://localhost:2526/public/partials/signin.html', show: false});
-                var showDialog = function () {
-                    loginModal.$promise.then(loginModal.show);
-                };
-
-                scope.$watch(attrs.visible, function(value){
-                    if(value == true)
-                        $(element).modal('show');
-                    else
-                        $(element).modal('hide');
-                });
-
-                scope.visible = false;
-                scope.$on(AUTH_EVENTS.notAuthenticated, showDialog);
-                scope.$on(AUTH_EVENTS.sessionTimeout, showDialog)
-            }
+            link: link
         };
+        return directive;
+
+        function link(scope, element, attrs) {
+            var loginModal = $modal({title: 'Login Foem', contentTemplate: 'http://localhost:2526/public/partials/signin.html', show: false});
+            var showDialog = function () {
+                loginModal.$promise.then(loginModal.show);
+            };
+
+            scope.$watch(attrs.visible, function(value){
+                if(value == true)
+                    $(element).modal('show');
+                else
+                    $(element).modal('hide');
+            });
+
+            scope.visible = false;
+            scope.$on(AUTH_EVENTS.notAuthenticated, showDialog);
+            scope.$on(AUTH_EVENTS.sessionTimeout, showDialog)
+        }
     }
 })();
