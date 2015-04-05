@@ -23,7 +23,7 @@
             })
             .when('/hotel/create', {
                 templateUrl: 'http://localhost:2526/public/partials/createHotel.html',
-                controller: 'MainCtrl',
+                controller: 'CreateHotelController',
                 data: {
                     authorizedRoles: [USER_ROLES.admin]
                 }
@@ -43,6 +43,21 @@
                     }
                 }
             })
+	        .when('/hotels/edit/:hotelId', {
+		        templateUrl: 'http://localhost:2526/public/partials/createHotel.html',
+		        controller: 'EditHotelController',
+		        data: {
+			        authorizedRoles: [USER_ROLES.admin]
+		        },
+		        resolve: {
+			        hotel: function($route, Hotel){
+				        var hotelId = $route.current.params.hotelId;
+				        if(hotelId){
+					        return Hotel.get(hotelId);
+				        }
+			        }
+		        }
+	        })
             .when('/login', {
                 templateUrl: 'http://localhost:2526/public/partials/signin.html',
                 controller: 'AuthCtrl',

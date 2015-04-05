@@ -32,6 +32,16 @@
                 });
         }
 
+	    Hotel.update = function(id, data){
+		    return $http.put('/hotel', data).then(updateCompleted).catch(error);
+		    function updateCompleted(res){
+			    return res.data.hotel;
+		    }
+		    function error(error){
+			    console.log(error);
+		    }
+	    }
+
         Hotel.prototype.create = function(file){
             if(!file){
                 throw ('No file selected');

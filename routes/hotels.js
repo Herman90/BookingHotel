@@ -53,8 +53,8 @@ exports.createHotel = function(req, res){
             if(err) throw(err);
         });
 
-        var rooms = JSON.parse(req.body.Rooms);
-        delete req.body.Rooms;
+        var rooms = JSON.parse(req.body.rooms);
+        delete req.body.rooms;
 
         var hotel  = new Hotel(req.body);
         hotel.PictureURL = '/public/upload/' + file.originalFilename;
@@ -79,3 +79,8 @@ exports.createHotel = function(req, res){
         res.send({error: e});
     }
 };
+
+exports.updateHotel = function(req, res){
+	var hotel  = new Hotel(req.body);
+	hotel.save();//todo: realize functionality
+}
