@@ -32,8 +32,8 @@
                 });
         }
 
-	    Hotel.update = function(id, data){
-		    return $http.put('/hotel', data).then(updateCompleted).catch(error);
+	    Hotel.prototype.update = function(){
+		    return $http.put('/hotel/' + this._id, this).then(updateCompleted).catch(error);
 		    function updateCompleted(res){
 			    return res.data.hotel;
 		    }

@@ -44,7 +44,7 @@
                 }
             })
 	        .when('/hotels/edit/:hotelId', {
-		        templateUrl: 'http://localhost:2526/public/partials/createHotel.html',
+		        templateUrl: 'http://localhost:2526/public/partials/editHotel.html',
 		        controller: 'EditHotelController',
 		        data: {
 			        authorizedRoles: [USER_ROLES.admin]

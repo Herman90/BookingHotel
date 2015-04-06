@@ -1,0 +1,79 @@
+<form class="form-horizontal" role="form" autocomplete="on" ng-submit="update()">
+        <div class="form-group">
+            <label for="hotelName" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+                <input id="hotelName" type="text" class="form-control" placeholder="Enter Name" ng-model="formData.Name">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="hotelRating" class="col-sm-2 control-label">Rating</label>
+            <div class="col-sm-10">
+                <input id="hotelRating" type="number" class="form-control" placeholder="Enter Rating" ng-model="formData.Rate">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="hotelDescription" class="col-sm-2 control-label">Description</label>
+            <div class="col-sm-10">
+                <textarea id="hotelDescription" class="form-control" placeholder="Type some words" ng-model="formData.Description"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="hotelAddress" class="col-sm-2 control-label">Address</label>
+            <div class="col-sm-10">
+                <input id="hotelAddress" class="form-control" placeholder="Type your address" ng-model="formData.Address" type="text"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="hotelWebsite" class="col-sm-2 control-label">Website</label>
+            <div class="col-sm-10">
+                <input id="hotelWebsite" class="form-control" placeholder="Type your website" ng-model="formData.Website" type="text"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="hotelPhoneNumber" class="col-sm-2 control-label">Phone Number</label>
+            <div class="col-sm-10">
+                <input id="hotelPhoneNumber" class="form-control" placeholder="Type your phone number" ng-model="formData.NumberOfPhone" type="tel"  />
+            </div>
+        </div>
+
+        <fieldset>
+            <legend>Rooms</legend>
+            <div ng-repeat="room in formData.rooms">
+                <div class="form-group">
+                    <label for="roomType" class="col-sm-2 control-label">Room Type</label>
+                    <div class="col-sm-10">
+                        <select id="roomType" class="form-control" ng-model="room.Type">
+                            <option value="0">Single</option>
+                            <option value="1">Double</option>
+                            <option value="2">Triple</option>
+                            <option value="3">Suite</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="roomSize" class="col-sm-2 control-label">Room Size</label>
+                    <div class="col-sm-10 input-group">
+                        <input id="roomSize" min="1" class="form-control" class="" type="number" value="1" ng-model="room.Size"/>
+                        <span class="input-group-addon">M<sup>2</sup></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="roomsCount" class="col-sm-2 control-label">Number of Rooms</label>
+                    <div class="col-sm-10">
+                        <input id="roomsCount" min="1" class="form-control" class="" type="number" value="1" ng-model="room.Count"/>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <button class="btn btn-primary" ng-click="addRoom()"><i class="icon-plus"></i>Add room</button>
+        </fieldset>
+
+        <div class="btn-group col-sm-offset-2">
+            <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+
+
+    </form>

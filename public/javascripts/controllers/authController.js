@@ -1,4 +1,5 @@
 (function(){
+    'use strict';
     angular.module('Authentication')
         .controller('AuthCtrl',['$scope', '$rootScope', '$location', 'AuthenticationService', 'AUTH_EVENTS', authController]);
 

@@ -81,6 +81,15 @@ exports.createHotel = function(req, res){
 };
 
 exports.updateHotel = function(req, res){
-	var hotel  = new Hotel(req.body);
-	hotel.update();//todo: realize functionality
+    var hotelId = req.body._id;
+    if(hotelId){
+        delete req.body.Rooms;
+        delete req.body._id;
+        Hotel.findByIdAndUpdate(hotelId, { $set: req.body}, function (err, hotel) {
+            if (err) return res.send(err);
+            res.send({hotel: hotel});
+         });
+    }else{
+        res.status(500).send(null);
+    }
 }
