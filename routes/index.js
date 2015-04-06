@@ -1,6 +1,6 @@
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart({
-    uploadDir: "E:\\projects\\itechart_test_project\\BOOK.HOTEL\\BOOK.HOTEL\\bookHotel_rep\\public\\upload"
+    uploadDir: "E:\\test\\BOOK.HOTEL\\bookHotelRepo\\public\\upload"
 });
 var Account = require('../models/account');
 
