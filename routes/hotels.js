@@ -82,5 +82,5 @@ exports.createHotel = function(req, res){
 
 exports.updateHotel = function(req, res){
 	var hotel  = new Hotel(req.body);
-	hotel.save();//todo: realize functionality
+	hotel.update();//todo: realize functionality
 }
