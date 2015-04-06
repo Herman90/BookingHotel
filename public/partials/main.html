@@ -9,18 +9,18 @@
 	</div>
 	<div class="well well-sm clearfix item" dir-paginate="hotel in hotels| itemsPerPage: pageSize">
 		<div class="col-xs-3">
-			<img src="{{hotel.PictureURL}}" class="img-thumbnail">
+			<img ng-src="{{hotel.PictureURL}}" class="img-thumbnail">
 		</div>
 		<div class="col-xs-9 container">
 			<div class="rating stars_{{hotel.Rate}}"></div>
-			<a href="#/hotels/{{hotel._id}}"><span class="panel-title">{{hotel.Name}}</span></a>
+			<a ng-href="#/hotels/{{hotel._id}}"><span class="panel-title">{{hotel.Name}}</span></a>
 			<p>
 				{{hotel.Description}}
 			</p>
 		</div>
 		<div class="hotelHover" ng-if="isAuthorized(userRoles.admin)">
 			<div class="text-right bottom">
-				<button class="btn btn-default" >Edit</button>
+				<a class="btn btn-default" ng-href="#/hotels/edit/{{hotel._id}}">Edit</a>
 				<button class="btn btn-danger" ng-click="removeHotel(hotel._id)">Remove</button>
 			</div>
 		</div>
