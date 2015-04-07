@@ -13,5 +13,8 @@
                 $location.path('/hotels/' + data._id);
             });
 		}
+        $scope.addRoom = function(){
+            $scope.formData.rooms.push({});
+        }
 	}
 })();

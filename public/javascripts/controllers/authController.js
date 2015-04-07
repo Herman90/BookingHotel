@@ -15,7 +15,7 @@
                 $location.path('/');
                 $scope.dataLoading = false;
             }).catch(function(erorr){
-                    $scope.error = erorr.message;
+                    $scope.error = erorr.message || "Email or password is incorrect. Please try again.";
                     $scope.dataLoading = false;
                     $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
             });

@@ -25,7 +25,7 @@ module.exports = function (app, passport) {
     });
     app.get('/', require('./start').get);
     app.get('/hotel', require('./hotels').getAll);
-    app.post('/hotel/create', multipartMiddleware, require('./hotels').createHotel);
+    app.post('/hotel/create', needsRole('admin'), multipartMiddleware, require('./hotels').createHotel);
     app.get('/hotels/:hotelId', require('./hotels').getHotelById);
     app.delete('/hotel/:hotelId', needsRole('admin'), require('./hotels').deleteHotel);
 	app.put('/hotel/:hotelId', needsRole('admin'), require('./hotels').updateHotel);

@@ -20,15 +20,15 @@
         function login(email, password) {
             return $http.post('/login', { email: email, password: password })
                 .then(loginComplete)
-                .catch(loginFailure);
+                //.catch(loginFailure);
 
             function loginComplete(res){
                 setSession(res.data.id, res.data.user._id, res.data.user.role);
                 return res.data.user;
             }
-            function loginFailure(erorr){
-                return erorr;
-            }
+//            function loginFailure(erorr){
+//                throw erorr;
+//            }
         }
 
         function isAuthenticated() {
