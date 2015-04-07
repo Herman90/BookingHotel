@@ -14,7 +14,7 @@ Run following commands:
 
 2) bower install
 
-Run mongod --dbpath <path to db files>
+Run mongod --dbpath <<path to db files>>
 
 4) grunt start - to start app
 
