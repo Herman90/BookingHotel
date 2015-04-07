@@ -18,7 +18,7 @@
                 templateUrl: 'http://localhost:2526/public/partials/about.html',
                 controller: 'AboutCtrl',
                 data: {
-                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.member]
+                    authorizedRoles: [USER_ROLES.all]
                 }
             })
             .when('/hotel/create', {

@@ -24,9 +24,10 @@
 
             function loginComplete(res){
                 setSession(res.data.id, res.data.user._id, res.data.user.role);
+                return res.data.user;
             }
             function loginFailure(erorr){
-
+                return erorr;
             }
         }
 
