@@ -3,5 +3,5 @@
         all: '*',
         admin: 'admin',
         member: 'member'
-    })
+    });
 })();

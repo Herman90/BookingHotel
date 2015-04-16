@@ -7,5 +7,5 @@
         sessionTimeout: 'auth-session-timeout',
         notAuthenticated: 'auth-not-authenticated',
         notAuthorized: 'auth-not-authorized'
-    })
+    });
 })();

@@ -4,7 +4,7 @@
     function progressBarDirective() {
         var directive = {
             link: link
-        }
+        };
         return directive;
 
         function link($scope, el, attrs) {

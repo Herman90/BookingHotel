@@ -20,7 +20,7 @@
 
         function login(email, password) {
             return $http.post('/login', { email: email, password: password })
-                .then(loginComplete)
+                .then(loginComplete);
                 //.catch(loginFailure);
 
             function loginComplete(res){

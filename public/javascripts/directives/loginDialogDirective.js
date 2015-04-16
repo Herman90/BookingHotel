@@ -28,7 +28,7 @@
             };
 
             scope.$watch(attrs.visible, function(value){
-                if(value == true)
+                if(value === true)
                     $(element).modal('show');
                 else
                     $(element).modal('hide');
@@ -36,7 +36,7 @@
 
             scope.visible = false;
             scope.$on(AUTH_EVENTS.notAuthenticated, showDialog);
-            scope.$on(AUTH_EVENTS.sessionTimeout, showDialog)
+            scope.$on(AUTH_EVENTS.sessionTimeout, showDialog);
         }
     }
 })();

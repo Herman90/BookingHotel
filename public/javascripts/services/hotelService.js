@@ -2,11 +2,11 @@
     angular.module('BookHotelApp')
         .factory('Hotel', hotelService);
 
-    hotelService.$inject = ['$http', '$upload']
+    hotelService.$inject = ['$http', '$upload'];
     function hotelService($http, $upload){
         var Hotel = function(data) {
             angular.extend(this, data);
-        }
+        };
 
         Hotel.get = function(id) {
             return $http.get('/hotels/' + id).then(function(response){
@@ -31,17 +31,17 @@
                 .success(function(data){
                     return data.success;
                 });
-        }
+        };
 
 	    Hotel.prototype.update = function(){
 		    return $http.put('/hotel/' + this._id, this).then(updateCompleted).catch(error);
 		    function updateCompleted(res){
 			    return res.data.hotel;
 		    }
-		    function error(error){
-			    console.log(error);
+		    function error(err){
+			    console.log(err);
 		    }
-	    }
+	    };
 
         Hotel.prototype.create = function(file){
             if(!file){
@@ -55,7 +55,7 @@
                 file: file,
                 contentType: 'application/json'
             });
-        }
+        };
         return Hotel;
     }
 })();

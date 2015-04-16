@@ -27,6 +27,6 @@
 		};
 		$scope.addRoom = function(){
 			$scope.formData.rooms.push({});
-		}
+		};
 	}
 })();

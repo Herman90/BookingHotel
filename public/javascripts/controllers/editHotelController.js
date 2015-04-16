@@ -12,9 +12,9 @@
 			updatedHotel.update().then(function(data){
                 $location.path('/hotels/' + data._id);
             });
-		}
+		};
         $scope.addRoom = function(){
             $scope.formData.Rooms.push({});
-        }
+        };
 	}
 })();

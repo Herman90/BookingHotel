@@ -7,6 +7,6 @@
                 return Array(count + 1).join(value);
             }
             return value;
-        }
+        };
     }
 })();
