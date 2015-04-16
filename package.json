@@ -33,8 +33,9 @@
     "winston": "^0.8.3"
   },
   "devDependencies": {
-      "grunt": "^0.4.5",
-      "grunt-execute": "^0.2.2"
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-execute": "^0.2.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
