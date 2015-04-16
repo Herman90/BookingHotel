@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var hash = require('../util/hash');
 
-
 UserSchema = mongoose.Schema({
     firstName:  String,
     lastName:   String,
@@ -90,16 +89,12 @@ UserSchema.statics.findOrCreateOAuthUser = function(profile, done){
                         done(null, user);
                     });
                 } else {
-                    // New e-mail, create
-
-                    // Fixed fields
                     user = {
                         email : profile.emails[0].value,
                         firstName : profile.displayName.split(" ")[0],
                         lastName : profile.displayName.replace(profile.displayName.split(" ")[0] + " ", "")
                     };
 
-                    // Dynamic fields
                     user[''+profile.authOrigin] = {};
                     user[''+profile.authOrigin].id = profile.id;
                     user[''+profile.authOrigin].email = profile.emails[0].value;

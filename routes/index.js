@@ -37,27 +37,9 @@ module.exports = function (app, passport) {
         res.send({user: null});
     });
 
-//    app.post('/login', function(req, res, next) {
-//        passport.authenticate('local', function(err, user, info) {
-//            if (err) { return next(err); }
-//            if (!user) { return res.send('/login'); }
-//            req.logIn(user, function(err) {
-//                if (err) { return next(err); }
-//                return res.send(user.username);
-//            });
-//        })(req, res, next);
-//    });
-
     app.post('/signup', passport.authenticate('signup'), function(req, res, next){
         res.send({ user: req.user, id: req.sessionID });
     });
-//    app.get('/chat', checkAuth, require('./chat').get);
-//
-//    app.get('/login', require('./login').get);
-//    app.post('/login', require('./login').post);
-//    app.post('/logout', require('./logout').post);
-
-
 }
 
 

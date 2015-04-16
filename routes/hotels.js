@@ -5,10 +5,6 @@ var path = require('path');
 var RoomType = require('../models/enums').RoomTypeEnum;
 
 exports.getAll = function(req, res){
-//    Room.find({}, function(err, rooms){
-//        res.send(rooms)
-//    });
-
     Hotel.find({},function(err, hotels){
         if(!err){
             Hotel.populate(hotels, {path: 'Rooms'}, function(err, hotels){

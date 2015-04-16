@@ -1,7 +1,6 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
-require('enum').register();
 var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -12,9 +11,11 @@ var app = express();
 var config = require('./config');
 var passport = require('passport');
 var session = require('express-session');
-require('./config/passport')(passport, config)
+
+require('enum').register();
+require('./config/passport')(passport, config);
+
 app.engine('ejs', require('ejs-locals'));
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -55,37 +56,8 @@ app.use(function(req, res, next) {
     res.type('txt').send('Not found');
 });
 
-/// error handlers
 
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        //var err = new Error('Not Found');
-        //err.status = 404;
-        //res.status(404);
-        if (req.accepts('html')) {
-            next(err)
-            return;
-        }
-        if (req.accepts('json')) {
-            res.send(err);
-            return;
-        }
-        res.type('txt').send(err);
-    });
-}
-
-// production error handler
-// no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-//    res.render('error', {
-//        message: err.message,
-//        error: {}
-//    });
-    //var err = new Error(err);
-    //err.status = 404;
-    //res.status(404);
     if (req.accepts('html')) {
         next(err)
         return;
@@ -96,6 +68,3 @@ app.use(function(err, req, res, next) {
     }
     res.type('txt').send(err);
 });
-
-
-//module.exports = app;
