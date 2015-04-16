@@ -1,9 +1,9 @@
 (function(){
-    angular.module('BookHotelApp')
-        .controller('MainCtrl', mainController);
-        mainController.$inject = ['$scope', 'Hotel'];
-    function mainController($scope, Hotel) {
+    angular.module('BookHotelApp').controller('MainCtrl', mainController);
 
+    mainController.$inject = ['$scope', 'Hotel'];
+
+    function mainController($scope, Hotel) {
         $scope.hotels = [];
         $scope.pageSize = 10;
 

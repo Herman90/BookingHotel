@@ -1,6 +1,8 @@
 (function(){
     angular.module('Authentication').factory('AuthResolver', authResolver);
 
+    authResolver.$inject = ['$q', '$rootScope', '$location'];
+
     function authResolver($q, $rootScope, $location) {
         return {
             resolve: function () {

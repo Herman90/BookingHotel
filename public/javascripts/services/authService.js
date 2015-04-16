@@ -1,7 +1,8 @@
 (function(){
     angular.module('Authentication')
-        .factory('AuthenticationService',
-            ['$http', '$cookieStore', '$rootScope', 'Session', authenticationService]);
+        .factory('AuthenticationService', authenticationService);
+
+    authenticationService.$inject = ['$http', '$cookieStore', '$rootScope', 'Session'];
 
     function authenticationService($http, $cookieStore, $rootScope, Session) {
         var service = {

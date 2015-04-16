@@ -2,6 +2,7 @@
     angular.module('BookHotelApp')
         .factory('Hotel', hotelService);
 
+    hotelService.$inject = ['$http', '$upload']
     function hotelService($http, $upload){
         var Hotel = function(data) {
             angular.extend(this, data);

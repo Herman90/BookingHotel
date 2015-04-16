@@ -1,7 +1,9 @@
 (function(){
     'use strict';
     angular.module('Authentication')
-        .controller('AuthCtrl',['$scope', '$rootScope', '$location', 'AuthenticationService', 'AUTH_EVENTS', authController]);
+        .controller('AuthCtrl',authController);
+
+    authController.$inject = ['$scope', '$rootScope', '$location', 'AuthenticationService', 'AUTH_EVENTS']
 
     function authController($scope, $rootScope, $location, AuthenticationService, AUTH_EVENTS) {
         // reset login status
@@ -28,7 +30,7 @@
                 return res.data.user;
             }).catch(function(erorr){
                     $scope.dataLoading = false;
-                    alert('error: ' + error);
+                    alert('error: ' + erorr);
                 })
         }
     }

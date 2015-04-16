@@ -1,5 +1,6 @@
 (function(){
     angular.module('BookHotelApp').config(config);
+    config.$inject = ['$httpProvider'];
     function config($httpProvider){
         $httpProvider.defaults.headers.post['Content-Type'] =  'application/json';
         $httpProvider.interceptors.push(function($q, $location) {

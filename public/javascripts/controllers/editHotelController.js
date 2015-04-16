@@ -14,7 +14,7 @@
             });
 		}
         $scope.addRoom = function(){
-            $scope.formData.rooms.push({});
+            $scope.formData.Rooms.push({});
         }
 	}
 })();

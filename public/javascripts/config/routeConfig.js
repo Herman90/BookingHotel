@@ -1,9 +1,12 @@
 (function(){
     angular.module('BookHotelApp').config(config);
+
+    config.$inject = ['$routeProvider'];
+
     function config($routeProvider, USER_ROLES){
         $routeProvider
             .when('/', {
-                templateUrl: 'http://localhost:2526/public/partials/main.html',
+                templateUrl: '/public/partials/main.html',
                 controller: 'MainCtrl',
                 data: {
                     authorizedRoles: [USER_ROLES.all]

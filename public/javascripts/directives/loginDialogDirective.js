@@ -1,6 +1,6 @@
 (function(){
     angular.module('BookHotelApp').directive('loginDialog', loginDialogDirective);
-
+    loginDialogDirective.$inject = ['AUTH_EVENTS', '$modal'];
     function loginDialogDirective(AUTH_EVENTS, $modal) {
         var directive = {
             restrict: 'E',
