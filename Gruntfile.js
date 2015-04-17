@@ -6,7 +6,27 @@ module.exports = function(grunt) {
             }
         },
         jshint: {
-            files: ['public/javascripts/**/*.js']
+            files: ['public/javascripts/**/*.js'],
+            options: {
+                'node': true,
+                'browser': true,
+                'bitwise': true,
+                'camelcase': true,
+                'curly': true,
+                'eqeqeq': true,
+                'indent': 4,
+                'latedef': 'nofunc',
+                'noarg': true,
+                'quotmark': 'single',
+                'undef': true,
+                'unused': true,
+                'strict': true,
+                'smarttabs': true,
+                'globals': {
+                    'angular': false,
+                    'jQuery': true
+                }
+            }
         },
         watch: {
             files: ['<%= jshint.files %>'],
@@ -19,5 +39,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('start', ['execute']);
-    grunt.registerTask('default', ['jshint']);
+    grunt.registerTask('jshintCheck', ['jshint']);
 };
