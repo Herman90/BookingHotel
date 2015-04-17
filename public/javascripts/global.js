@@ -1,5 +1,7 @@
-angular.module('Authentication', []);
-angular.module('BookHotelApp', ['ngRoute', 'ngCookies',
+(function(){
+    'use strict';
+    angular.module('Authentication', []);
+    angular.module('BookHotelApp', ['ngRoute', 'ngCookies',
          'angularFileUpload', 'angularUtils.directives.dirPagination', 'Authentication', 'mgcrea.ngStrap'])
     .run(function($rootScope, AUTH_EVENTS, USER_ROLES, AuthenticationService){
         $rootScope.userRoles = USER_ROLES;
@@ -35,3 +37,4 @@ angular.module('BookHotelApp', ['ngRoute', 'ngCookies',
             }
 		});
 	});
+})();

@@ -9,7 +9,7 @@
         // reset login status
         AuthenticationService.clearCredentials();
 
-        $scope.error = "";
+        $scope.error = '';
         $scope.login = function () {
             $scope.dataLoading = true;
             AuthenticationService.login($scope.email, $scope.password).then(function() {
@@ -17,7 +17,7 @@
                 $location.path('/');
                 $scope.dataLoading = false;
             }).catch(function(erorr){
-                    $scope.error = erorr.message || "Email or password is incorrect. Please try again.";
+                    $scope.error = erorr.message || 'Email or password is incorrect. Please try again.';
                     $scope.dataLoading = false;
                     $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
             });

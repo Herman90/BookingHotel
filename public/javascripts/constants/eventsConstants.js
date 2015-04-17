@@ -1,4 +1,5 @@
 (function(){
+    'use strict';
     angular.module('BookHotelApp').constant('AUTH_EVENTS', {
         registerSuccess: 'auth-register-success',
         loginSuccess: 'auth-login-success',

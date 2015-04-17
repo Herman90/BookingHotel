@@ -1,4 +1,5 @@
 (function(){
+    'use strict';
     angular.module('Authentication').factory('AuthResolver', authResolver);
 
     authResolver.$inject = ['$q', '$rootScope', '$location'];

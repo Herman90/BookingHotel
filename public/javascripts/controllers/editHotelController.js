@@ -1,20 +1,21 @@
 (function(){
-	angular.module('BookHotelApp').controller('EditHotelController', editHotel);
+    'use strict';
+    angular.module('BookHotelApp').controller('EditHotelController', editHotel);
 
-	editHotel.$inject = ['$scope', '$location', 'hotel', 'Hotel'];
+    editHotel.$inject = ['$scope', '$location', 'hotel', 'Hotel'];
 
-	function editHotel($scope, $location, hotel, Hotel){
-		$scope.hotel = hotel;
-		$scope.formData = hotel;
+    function editHotel($scope, $location, hotel, Hotel){
+        $scope.hotel = hotel;
+        $scope.formData = hotel;
 
-		$scope.update = function(){
-			var updatedHotel = new Hotel(hotel);
-			updatedHotel.update().then(function(data){
+        $scope.update = function(){
+            var updatedHotel = new Hotel(hotel);
+            updatedHotel.update().then(function(data){
                 $location.path('/hotels/' + data._id);
             });
-		};
+        };
         $scope.addRoom = function(){
             $scope.formData.Rooms.push({});
         };
-	}
+    }
 })();

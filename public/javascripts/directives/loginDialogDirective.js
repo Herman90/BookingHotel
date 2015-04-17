@@ -1,4 +1,5 @@
 (function(){
+    'use strict';
     angular.module('BookHotelApp').directive('loginDialog', loginDialogDirective);
     loginDialogDirective.$inject = ['AUTH_EVENTS', '$modal'];
     function loginDialogDirective(AUTH_EVENTS, $modal) {
@@ -28,10 +29,12 @@
             };
 
             scope.$watch(attrs.visible, function(value){
-                if(value === true)
+                if(value === true){
                     $(element).modal('show');
-                else
+                }
+                else{
                     $(element).modal('hide');
+                }
             });
 
             scope.visible = false;

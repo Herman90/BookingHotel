@@ -1,4 +1,5 @@
 (function(){
+    'use strict';
     angular.module('BookHotelApp').directive('progressBar', progressBarDirective);
 
     function progressBarDirective() {

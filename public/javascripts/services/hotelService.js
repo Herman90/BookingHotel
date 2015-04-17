@@ -1,4 +1,5 @@
 (function(){
+    'use strict';
     angular.module('BookHotelApp')
         .factory('Hotel', hotelService);
 
@@ -10,7 +11,7 @@
 
         Hotel.get = function(id) {
             return $http.get('/hotels/' + id).then(function(response){
-                if(response.status == 200){
+                if(response.status === 200){
                     return new Hotel(response.data);
                 }
                 return {};
@@ -19,7 +20,7 @@
 
         Hotel.getAll = function() {
             return $http.get('/hotel').then(function(response){
-                if(response.status == 200){
+                if(response.status === 200){
                     return response.data;
                 }
                 return [];
@@ -34,13 +35,13 @@
         };
 
 	    Hotel.prototype.update = function(){
-		    return $http.put('/hotel/' + this._id, this).then(updateCompleted).catch(error);
-		    function updateCompleted(res){
-			    return res.data.hotel;
-		    }
-		    function error(err){
-			    console.log(err);
-		    }
+            function updateCompleted(res){
+                return res.data.hotel;
+            }
+            function error(err){
+                console.log(err);
+            }
+            return $http.put('/hotel/' + this._id, this).then(updateCompleted).catch(error);
 	    };
 
         Hotel.prototype.create = function(file){

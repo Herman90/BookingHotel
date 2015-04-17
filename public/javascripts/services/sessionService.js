@@ -1,8 +1,10 @@
 (function(){
+    'use strict';
     angular.module('Authentication')
         .service('Session', sessionService);
 
     function sessionService() {
+        /*jshint validthis:true */
         this.create = function (sessionId, userId, userRole) {
             this.id = sessionId;
             this.userId = userId;

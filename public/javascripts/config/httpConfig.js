@@ -1,4 +1,5 @@
 (function(){
+    'use strict';
     angular.module('BookHotelApp').config(config);
     config.$inject = ['$httpProvider'];
     function config($httpProvider){

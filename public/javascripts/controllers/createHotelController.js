@@ -1,4 +1,5 @@
 (function(){
+    'use strict';
 	angular.module('BookHotelApp').controller('CreateHotelController', createHotelController);
 
 	createHotelController.$inject = ['$scope', 'Hotel', '$alert'];
