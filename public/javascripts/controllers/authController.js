@@ -17,9 +17,9 @@
                 $location.path('/');
                 $scope.dataLoading = false;
             }).catch(function(erorr){
-                    $scope.error = erorr.message || 'Email or password is incorrect. Please try again.';
-                    $scope.dataLoading = false;
-                    $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+                $scope.error = erorr.message || 'Email or password is incorrect. Please try again.';
+                $scope.dataLoading = false;
+                $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
             });
         };
         $scope.signup = function(){
@@ -29,8 +29,9 @@
                 $rootScope.$broadcast(AUTH_EVENTS.registerSuccess);
                 return res.data.user;
             }).catch(function(erorr){
+                    $scope.error = erorr.message || 'Email or password is incorrect. Please try again.';
                     $scope.dataLoading = false;
-                    alert('error: ' + erorr);
+                    $rootScope.$broadcast(AUTH_EVENTS.registerFailed);
                 });
         };
     }
